@@ -8,7 +8,8 @@ public class MoodAnalyser {
     public String analyseMood() {
         if(mood.contains("sad"))
             return "SAD";
-        else
+        else if(mood.contains("happy"))
             return "HAPPY";
+        return null;
     }
 }
