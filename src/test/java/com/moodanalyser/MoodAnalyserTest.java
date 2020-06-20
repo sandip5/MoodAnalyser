@@ -13,8 +13,7 @@ public class MoodAnalyserTest {
             exceptionRule.expect(MoodAnalyserException.class);
             String mood = moodAnalyser.analyseMood();
             Assert.assertEquals("SAD", mood);
-        }catch (MoodAnalyserException e){
-            e.printStackTrace();
+        }catch (MoodAnalyserException ignored){
         }
     }
     @Test
@@ -25,8 +24,7 @@ public class MoodAnalyserTest {
             exceptionRule.expect(MoodAnalyserException.class);
             String mood =moodAnalyser.analyseMood();
             Assert.assertEquals("HAPPY",mood);
-        }catch (MoodAnalyserException e){
-            e.printStackTrace();
+        }catch (MoodAnalyserException ignored){
         }
     }
     @Test
@@ -39,6 +37,24 @@ public class MoodAnalyserTest {
             Assert.assertEquals("HAPPY",mood);
         }catch (MoodAnalyserException e){
             e.printStackTrace();
+        }
+    }
+    @Test
+    public void givenNullMood_ShouldThrowException() {
+        MoodAnalyser moodAnalyser = new MoodAnalyser(null);
+        try{
+            moodAnalyser.analyseMood();
+        }catch (MoodAnalyserException e){
+            Assert.assertEquals(MoodAnalyserException.ExceptionType.ENTERED_NULL,e.type);
+        }
+    }
+    @Test
+    public void givenEmptyMood_ShouldThrowException() {
+        MoodAnalyser moodAnalyser = new MoodAnalyser("");
+        try{
+            moodAnalyser.analyseMood();
+        }catch (MoodAnalyserException e){
+            Assert.assertEquals(MoodAnalyserException.ExceptionType.ENTERED_EMPTY,e.type);
         }
     }
 }
