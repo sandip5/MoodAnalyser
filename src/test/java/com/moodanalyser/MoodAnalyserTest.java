@@ -3,8 +3,32 @@ package com.moodanalyser;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import static java.lang.Class.forName;
 
 public class MoodAnalyserTest {
+    @Test
+    public void givenMoodAnalyser_WhenProper_ShouldReturnObject() {
+        Constructor<?> constructor = null;
+        try {
+            constructor = forName("com.moodanalyser.MoodAnalyser").getConstructor(String.class);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            final Object myObj = constructor.newInstance("I am in a happy mood.");
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Test
     public void givenMessage_WhenSad_ShouldReturnSad() {
         MoodAnalyser moodAnalyser = new MoodAnalyser("I am in sad mood.");
