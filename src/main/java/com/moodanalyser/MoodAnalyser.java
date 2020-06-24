@@ -5,11 +5,15 @@ public class MoodAnalyser {
     public MoodAnalyser(String message){
         this.mood=message;
     }
+    /**
+     * Method For Analyse Mood
+     * @return
+     * @throws MoodAnalyserException
+     */
     public String analyseMood() throws MoodAnalyserException {
-
         try {
             if(mood.length() == 0)
-                throw new  MoodAnalyserException(MoodAnalyserException.ExceptionType.ENTERED_EMPTY,"Please Enter Valid Mood");
+                throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.ENTERED_EMPTY,"Please Enter Valid Mood");
             if (mood.contains("sad"))
                 return "SAD";
             else
