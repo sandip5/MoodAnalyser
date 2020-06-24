@@ -19,12 +19,17 @@ public class MoodAnalyserTest {
             e.printStackTrace();
         }
         try {
-            final Object myObj = constructor.newInstance("I am in a happy mood.");
+            Object myObj = constructor.newInstance("I am in a happy mood.");
+            MoodAnalyser moodAnalyser = (MoodAnalyser) myObj;
+            String mood = moodAnalyser.analyseMood();
+            Assert.assertEquals("HAPPY",mood);
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (MoodAnalyserException e) {
             e.printStackTrace();
         }
     }
