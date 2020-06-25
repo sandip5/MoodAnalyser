@@ -5,16 +5,32 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 
 public class MoodAnalyserTest {
     @Test
     public void givenMoodAnalyser_WhenProper_ShouldReturnObject() throws MoodAnalyserException{
         MoodAnalyser moodAnalyzer = new MoodAnalyser();
-        Constructor<?> moodAnalyserConstructor = MoodAnalyserFactory.getConstructor("MoodAnalyser");
+        Constructor<?> moodAnalyserConstructor = MoodAnalyserFactory.getConstructor("MoodAnalyser", Integer.class);
         MoodAnalyser moodAnalyserObject = MoodAnalyserFactory.createMoodAnalyser(moodAnalyserConstructor);
         boolean result = moodAnalyzer.equals(moodAnalyserObject);
         Assert.assertEquals(true, result);
+    }
+    @Test
+    public void givenClassName_WhenImproper_ShouldthrowMoodAnalysis() {
+        try {
+            Constructor<?> moodAnalyserConstructor = MoodAnalyserFactory.getConstructor("Analyser",Integer.class);
+        } catch (MoodAnalyserException e) {
+            Assert.assertEquals(MoodAnalyserException.ExceptionType.NO_SUCH_CLASS, e.type);
+        }
+    }
+
+    @Test
+    public void givenClassName_WhenConstructorNotProper_ShouldThrowMoodAnalysis() {
+        try {
+            Constructor<?> moodAnalyserConstructor = MoodAnalyserFactory.getConstructor("MoodAnalyser", Integer.class);
+        } catch (MoodAnalyserException e) {
+            Assert.assertEquals(MoodAnalyserException.ExceptionType.NO_SUCH_METHOD, e.type);
+        }
     }
     @Test
     public void givenMessage_WhenSad_ShouldReturnSad() {

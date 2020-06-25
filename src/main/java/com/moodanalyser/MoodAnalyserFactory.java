@@ -24,7 +24,7 @@ public class MoodAnalyserFactory {
         return null;
     }
 
-    public static Constructor<?> getConstructor(String className) throws MoodAnalyserException {
+    public static Constructor<?> getConstructor(String className, Class<Integer> integerClass) throws MoodAnalyserException {
         Class<?> moodAnalyserClass;
         try {
             moodAnalyserClass = Class.forName(className);
