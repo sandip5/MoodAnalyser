@@ -3,7 +3,7 @@ package com.moodanalyser;
 import java.util.Objects;
 
 public class MoodAnalyser {
-    String mood;
+    static String mood;
     public MoodAnalyser() {
 
     }
@@ -27,11 +27,17 @@ public class MoodAnalyser {
             throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.ENTERED_NULL,"Please Enter Valid Mood");
         }
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MoodAnalyser that = (MoodAnalyser) o;
         return Objects.equals(mood, that.mood);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mood);
     }
 }
