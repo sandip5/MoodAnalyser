@@ -134,4 +134,16 @@ public class MoodAnalyserTest {
         }
 
     }
+    @Test
+    public void givenMoodAnalyser_WhenFieldValueNull_ShouldThrowException() {
+        try {
+            Object myObject = MoodAnalyserReflector.createMoodAnalyser("com.moodanalyser.service.MoodAnalyser", "I am in happy mood", String.class);
+            MoodAnalyserReflector.setFieldValue(myObject,"mood","");
+            Object mood = MoodAnalyserReflector.invokeMethod(myObject,"analyseMood");
+            Assert.assertEquals("HAPPY",mood);
+        } catch (MoodAnalyserException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
