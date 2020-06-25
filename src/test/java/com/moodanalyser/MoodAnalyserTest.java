@@ -5,13 +5,17 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 public class MoodAnalyserTest {
+    MoodAnalyser moodAnalyser;
+    String result;
+    String message = "I am in a happy mood";
     @Test
     public void givenMoodAnalyser_WhenProper_ShouldReturnObject() throws MoodAnalyserException{
         MoodAnalyser moodAnalyzer = new MoodAnalyser();
         Constructor<?> moodAnalyserConstructor = MoodAnalyserFactory.getConstructor("MoodAnalyser", Integer.class);
-        MoodAnalyser moodAnalyserObject = MoodAnalyserFactory.createMoodAnalyser(moodAnalyserConstructor);
+        MoodAnalyser moodAnalyserObject = MoodAnalyserFactory.createMoodAnalyser(moodAnalyserConstructor, "I am in a happy mood");
         boolean result = moodAnalyzer.equals(moodAnalyserObject);
         Assert.assertEquals(true, result);
     }
@@ -83,5 +87,13 @@ public class MoodAnalyserTest {
         } catch (MoodAnalyserException e) {
             Assert.assertEquals(MoodAnalyserException.ExceptionType.ENTERED_EMPTY, e.type);
         }
+    }
+    @Test
+    public void givenMoodAnalysisWithParametrizedConstructor_WhenProper_ShouldReturnObject() throws MoodAnalyserException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        moodAnalyser = new MoodAnalyser("I am in a happy mood");
+        Constructor<?> moodAnalyserConstructor = MoodAnalyserFactory.getConstructor("MoodAnalyser", String.class);
+        MoodAnalyser moodAnalyzerObject = MoodAnalyserFactory.createMoodAnalyserObject(moodAnalyserConstructor, "I am in a happy mood");
+        boolean result = moodAnalyser.equals(moodAnalyzerObject);
+        Assert.assertEquals(true, result);
     }
 }
