@@ -3,6 +3,7 @@ package com.moodanalyser.service;
 import com.moodanalyser.exception.MoodAnalyserException;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
 public class MoodAnalyserReflector {
@@ -33,5 +34,19 @@ public class MoodAnalyserReflector {
             throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NO_SUCH_METHOD, "Method Wrong");
         }
 
+    }
+
+    public static void setFieldValue(Object myObject, String fieldName, String fieldValue) throws MoodAnalyserException {
+        try {
+            Field field = myObject.getClass().getDeclaredField(fieldName);
+            field.setAccessible(true);
+            field.set(myObject,fieldValue);
+            if(fieldValue.length()==0)
+                throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.ENTERED_EMPTY, "No Field Value");
+        }catch (NoSuchFieldException e) {
+            throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NO_SUCH_FIELD, "No Such Field Name");
+        } catch (IllegalAccessException e) {
+            throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.ILLEGAL_FIELD_ISSUE, "Illegal Field Issue");
+        }
     }
 }

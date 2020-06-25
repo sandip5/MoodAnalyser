@@ -109,4 +109,41 @@ public class MoodAnalyserTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenMoodAnalyser_OnChangeMood_ShouldReturnHappy() {
+        try {
+            Object myObject = MoodAnalyserReflector.createMoodAnalyser("com.moodanalyser.service.MoodAnalyser", "", String.class);
+            MoodAnalyserReflector.setFieldValue(myObject,"mood","I am in happy mood");
+            Object mood = MoodAnalyserReflector.invokeMethod(myObject,"analyseMood");
+            Assert.assertEquals("HAPPY",mood);
+        } catch (MoodAnalyserException e) {
+            e.printStackTrace();
+        }
+
+    }
+    @Test
+    public void givenMoodAnalyser_WhenFieldNameChange_ShouldThrowException() {
+        try {
+            Object myObject = MoodAnalyserReflector.createMoodAnalyser("com.moodanalyser.service.MoodAnalyser", "", String.class);
+            MoodAnalyserReflector.setFieldValue(myObject,"wrongFieldName","I am in happy mood");
+            Object mood = MoodAnalyserReflector.invokeMethod(myObject,"analyseMood");
+            Assert.assertEquals("HAPPY",mood);
+        } catch (MoodAnalyserException e) {
+            e.printStackTrace();
+        }
+
+    }
+    @Test
+    public void givenMoodAnalyser_WhenFieldValueNull_ShouldThrowException() {
+        try {
+            Object myObject = MoodAnalyserReflector.createMoodAnalyser("com.moodanalyser.service.MoodAnalyser", "I am in happy mood", String.class);
+            MoodAnalyserReflector.setFieldValue(myObject,"mood","");
+            Object mood = MoodAnalyserReflector.invokeMethod(myObject,"analyseMood");
+            Assert.assertEquals("HAPPY",mood);
+        } catch (MoodAnalyserException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
