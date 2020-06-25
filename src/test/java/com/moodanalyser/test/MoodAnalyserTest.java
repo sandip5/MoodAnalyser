@@ -99,4 +99,14 @@ public class MoodAnalyserTest {
             e.printStackTrace();
         }
     }
+    @Test
+    public void givenHappyMood_WithReflection_WhenImproperMethod_ShouldReturnException() {
+        try {
+            Object myObject = MoodAnalyserReflector.createMoodAnalyser("com.moodanalyser.service.MoodAnalyser", "I am in happy mood", String.class);
+            Object mood = MoodAnalyserReflector.invokeMethod(myObject,"analyseMooder");
+            Assert.assertEquals("HAPPY",mood);
+        } catch (MoodAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
 }
