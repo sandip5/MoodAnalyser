@@ -96,4 +96,12 @@ public class MoodAnalyserTest {
         boolean result = moodAnalyser.equals(moodAnalyzerObject);
         Assert.assertEquals(true, result);
     }
+    @Test
+    public void givenMoodAnalysisWithParametrizedConstructor_WhenImproper_ShouldThrowMoodAnalysisException() {
+        try {
+            Constructor<?> moodAnalyserConstructor = MoodAnalyserFactory.getConstructor("Analyser", String.class);
+        } catch (MoodAnalyserException e) {
+            Assert.assertEquals(MoodAnalyserException.ExceptionType.NO_SUCH_CLASS, e.type);
+        }
+    }
 }
