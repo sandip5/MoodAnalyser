@@ -4,16 +4,17 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 public class MoodAnalyserTest {
     @Test
-    public void givenMoodAnalyser_WhenProper_ShouldReturnObject() {
-        MoodAnalyser moodAnalyser = MoodAnalyserFactory.createMoodAnalyser("I am in happy mood");
-        try {
-            String mood = moodAnalyser.analyseMood();
-            Assert.assertEquals("HAPPY", mood);
-        } catch (MoodAnalyserException e) {
-            e.printStackTrace();
-        }
+    public void givenMoodAnalyser_WhenProper_ShouldReturnObject() throws MoodAnalyserException{
+        MoodAnalyser moodAnalyzer = new MoodAnalyser();
+        Constructor<?> moodAnalyserConstructor = MoodAnalyserFactory.getConstructor("MoodAnalyser");
+        MoodAnalyser moodAnalyserObject = MoodAnalyserFactory.createMoodAnalyser(moodAnalyserConstructor);
+        boolean result = moodAnalyzer.equals(moodAnalyserObject);
+        Assert.assertEquals(true, result);
     }
     @Test
     public void givenMessage_WhenSad_ShouldReturnSad() {
