@@ -30,7 +30,7 @@ public class MoodAnalyserReflector {
         try {
            return moodAnalyserObject.getClass().getMethod(methodName).invoke(moodAnalyserObject);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NO_SUCH_METHOD, "Exception Found");
+            throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NO_SUCH_METHOD, "Method Wrong");
         }
 
     }
