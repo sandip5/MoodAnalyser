@@ -99,9 +99,18 @@ public class MoodAnalyserTest {
     @Test
     public void givenMoodAnalysisWithParametrizedConstructor_WhenImproper_ShouldThrowMoodAnalysisException() {
         try {
-            Constructor<?> moodAnalyserConstructor = MoodAnalyserFactory.getConstructor("Analyser", String.class);
+            MoodAnalyserFactory.getConstructor("Analyser", String.class);
         } catch (MoodAnalyserException e) {
             Assert.assertEquals(MoodAnalyserException.ExceptionType.NO_SUCH_CLASS, e.type);
         }
     }
+    @Test
+    public void givenMoodAnalysisWithParametrizedConstructor_WhenConstructorNotProper_ShouldThrowMoodAnalysisException() {
+        try {
+            MoodAnalyserFactory.getConstructor("createMood", String.class);
+        } catch (MoodAnalyserException e) {
+            Assert.assertEquals(MoodAnalyserException.ExceptionType.NO_SUCH_METHOD, e.type);
+        }
+    }
+
 }
