@@ -122,4 +122,16 @@ public class MoodAnalyserTest {
         }
 
     }
+    @Test
+    public void givenMoodAnalyser_WhenFieldNameChange_ShouldThrowException() {
+        try {
+            Object myObject = MoodAnalyserReflector.createMoodAnalyser("com.moodanalyser.service.MoodAnalyser", "", String.class);
+            MoodAnalyserReflector.setFieldValue(myObject,"wrongFieldName","I am in happy mood");
+            Object mood = MoodAnalyserReflector.invokeMethod(myObject,"analyseMood");
+            Assert.assertEquals("HAPPY",mood);
+        } catch (MoodAnalyserException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
